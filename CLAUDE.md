@@ -16,7 +16,10 @@ This is a general-purpose repository focused on Claude-related work. As the repo
 ```
 Claude/
 ├── CLAUDE.md        # This file — AI assistant guidance
-└── README.md        # Project overview
+├── README.md        # Project overview
+└── tasks/
+    ├── todo.md      # Active task plans
+    └── lessons.md   # Accumulated lessons from corrections
 ```
 
 As files and directories are added, document them here with a brief description of their purpose.
@@ -60,9 +63,9 @@ repository, covering structure, workflow, and coding conventions.
 - Do not skip pre-commit hooks (`--no-verify`)
 - Prefer creating new commits over amending existing ones
 
-## Coding Conventions
+## AI Behavior
 
-As code is added to this repository, document language-specific conventions here. General principles to follow until then:
+Guidelines for how the AI assistant should behave in this repository. General principles:
 
 - **Simplicity first:** Write the minimum code needed. Avoid over-engineering, premature abstractions, and unnecessary features.
 - **No unnecessary files:** Prefer editing existing files over creating new ones.
@@ -70,35 +73,50 @@ As code is added to this repository, document language-specific conventions here
 - **Security:** Avoid introducing vulnerabilities (XSS, SQL injection, command injection, etc.). Validate at system boundaries only.
 - **No backward-compat shims:** Remove unused code completely rather than commenting it out or aliasing it.
 
-## Working with AI Assistants
+### 1. Plan Mode Default
+- Enter plan mode for ANY non-trivial task (3+ steps or architectural decisions)
+- If something goes sideways, STOP and re-plan immediately - don't keep pushing
+- Use plan mode for verification steps, not just building
+- Write detailed specs upfront to reduce ambiguity
 
-### Before Making Changes
+### 2. Subagent Strategy
+- Use subagents liberally to keep main context window clean
+- Offload research, exploration, and parallel analysis to subagents
+- For complex problems, throw more compute at it via subagents
+- One task per subagent for focused execution
 
-- Read files before editing them — understand existing code first
-- For broad exploration, use codebase search tools before jumping to edits
-- When requirements are ambiguous, ask for clarification before implementing
+### 3. Self-Improvement Loop
+- After ANY correction from the user: update "tasks/lessons.md" with the pattern
+- Write rules for yourself that prevent the same mistake
+- Ruthlessly iterate on these lessons until mistake rate drops
+- Review lessons at session start for relevant project
 
-### Scope of Changes
+### 4. Verification Before Done
+- Never mark a task complete without proving it works
+- Diff behavior between main and your changes when relevant
+- Ask yourself: "Would a staff engineer approve this?"
+- Run tests, check logs, demonstrate correctness
 
-- Only make changes that are directly requested or clearly necessary
-- Do not add docstrings, comments, or type annotations to code you didn't change
-- Do not refactor surrounding code while fixing a bug
-- Three similar lines is better than a premature abstraction
+### 5. Demand Elegance (Balanced)
+- For non-trivial changes: pause and ask "is there a more elegant way?"
+- If a fix feels hacky: "Knowing everything I know now, implement the elegant solution"
+- Skip this for simple, obvious fixes - don't over-engineer
+- Challenge your own work before presenting it
 
-### Risky Operations
+### 6. Autonomous Bug Fixing
+- When given a bug report: just fix it. Don't ask for hand-holding
+- Point at logs, errors, failing tests - then resolve them
+- Zero context switching required from the user
+- Go fix failing CI tests without being told how
 
-Always confirm with the user before:
-- Deleting files or branches
-- Force-pushing
-- Modifying CI/CD configuration
-- Any action visible to others (pushing, creating PRs, posting to external services)
+## Task Management
+1. **Plan First**: Write plan to "tasks/todo.md" with checkable items
+2. **Verify Plan**: Check in before starting implementation
+3. **Track Progress**: Mark items complete as you go
+4. **Explain Changes**: High-Level summary at each step
+5. **Document Results**: Add review section to "tasks/todo.md"
+6. **Capture Lessons**: Update "tasks/lessons.md" after corrections
 
-## Updating This File
-
-This file should be updated whenever:
-- New directories or significant files are added to the repository
-- Language/framework choices are made
-- Testing, linting, or build tooling is introduced
-- Coding conventions are established or changed
-
-Keep this file accurate and concise — it is a living document.
+## Core Principles
+- **Simplicity First**: Make every change as simple as possible. Impact minimal code.
+- **No Laziness**: Find root causes. No temporary fixes. Senior developer standards.
