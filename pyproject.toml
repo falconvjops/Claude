@@ -37,6 +37,23 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+agents = [
+    # LangChain core
+    "langchain>=0.3.0",
+    "langchain-core>=0.3.0",
+    "langchain-anthropic>=0.3.0",
+    "langchain-community>=0.3.0",
+    # LangGraph
+    "langgraph>=0.2.0",
+    # Experimental (Python REPL)
+    "langchain-experimental>=0.3.0",
+    # Financial data
+    "yfinance>=0.2.40",
+    # Search
+    "duckduckgo-search>=6.0.0",
+    # Numerical analysis
+    "numpy>=1.26.0",
+]
 dev = [
     "pytest>=8.2.0",
     "pytest-asyncio>=0.23.0",
@@ -45,7 +62,7 @@ dev = [
 ]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src"]
+packages = ["src", "langchain_agent"]
 
 [tool.pytest.ini_options]
 asyncio_mode = "auto"
