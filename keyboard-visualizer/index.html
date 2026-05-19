@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Security-Policy"
+          content="default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:;" />
+    <title>Keyboard Visualizer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=VT323&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="case">
+      <!-- decorative case stickers -->
+      <svg class="sticker case-star" viewBox="0 0 20 20" aria-hidden="true">
+        <path d="M10 1 12 7 18 7 13 11 15 17 10 13 5 17 7 11 2 7 8 7Z" />
+      </svg>
+      <svg class="sticker case-heart" viewBox="0 0 20 20" aria-hidden="true">
+        <path d="M10 17 C 3 12 1 8 4 5 C 6.5 2.6 9 4 10 6 C 11 4 13.5 2.6 16 5 C 19 8 17 12 10 17 Z" />
+      </svg>
+      <svg class="sticker case-star case-star-2" viewBox="0 0 20 20" aria-hidden="true">
+        <path d="M10 1 12 7 18 7 13 11 15 17 10 13 5 17 7 11 2 7 8 7Z" />
+      </svg>
+
+      <div class="toolbar">
+        <div class="brand">
+          <span class="brand-text">K&Eacute;YS</span>
+          <span class="brand-dot">&#9733;</span>
+          <span class="brand-sub">vol.1</span>
+        </div>
+        <div class="mode-switch" id="mode-switch">
+          <button type="button" data-mode="synth1" class="active">CLICK</button>
+          <button type="button" data-mode="synth2">FUZZ</button>
+          <button type="button" data-mode="sample1">SMPL1</button>
+          <button type="button" data-mode="sample2">SMPL2</button>
+        </div>
+      </div>
+
+      <div class="keyboard" id="keyboard"></div>
+    </div>
+
+    <div class="scanlines" aria-hidden="true"></div>
+    <script src="renderer.js"></script>
+  </body>
+</html>

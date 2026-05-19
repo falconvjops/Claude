@@ -1,0 +1,16 @@
+{
+  "name": "keyboard-visualizer",
+  "version": "1.0.0",
+  "description": "Retro-90s mechanical keyboard visualizer that lives in your macOS menu bar.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^30.0.9"
+  },
+  "dependencies": {
+    "uiohook-napi": "^1.5.4"
+  }
+}

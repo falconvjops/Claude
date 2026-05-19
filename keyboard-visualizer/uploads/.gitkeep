@@ -1,0 +1,3 @@
+Drop one or two .wav / .mp3 files here.
+The first two (alphabetical) are bound to the SMPL1 and SMPL2 modes
+and decoded once into AudioBuffers at startup.

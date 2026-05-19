@@ -1,0 +1,269 @@
+:root {
+  --cream: #f3e7c9;
+  --cream-deep: #ead9b0;
+  --case: #e2cc94;
+  --ink: #1a1612;
+  --yellow: #f6c93e;
+  --red: #e2453a;
+  --shadow: 4px 4px 0 var(--ink);
+  --shadow-soft: 2px 2px 0 var(--ink);
+  --shadow-press: 1px 1px 0 var(--ink);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: default;
+}
+
+body {
+  font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+  color: var(--ink);
+  background: var(--cream);
+  position: relative;
+  overflow: hidden;
+}
+
+/* paper noise */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.08  0 0 0 0 0.08  0 0 0 0.22 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  pointer-events: none;
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+  z-index: 1;
+}
+
+/* CRT scanlines */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.07) 0 1px,
+    transparent 1px 3px
+  );
+  pointer-events: none;
+  z-index: 50;
+  mix-blend-mode: multiply;
+}
+
+.case {
+  position: relative;
+  margin: 14px;
+  padding: 12px 14px 16px;
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(255, 255, 255, 0.35), transparent 60%),
+    var(--case);
+  border: 3px solid var(--ink);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  z-index: 5;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'VT323', ui-monospace, monospace;
+  font-size: 24px;
+  letter-spacing: 2px;
+  line-height: 1;
+  padding: 4px 12px 2px;
+  background: var(--ink);
+  color: var(--cream);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: var(--shadow-soft);
+}
+.brand-dot {
+  color: var(--yellow);
+  font-size: 20px;
+  transform: translateY(-2px);
+}
+.brand-sub {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--cream-deep);
+  letter-spacing: 2px;
+  border-left: 1px solid rgba(243, 231, 201, 0.4);
+  padding-left: 8px;
+}
+
+.mode-switch {
+  display: flex;
+  gap: 6px;
+}
+.mode-switch button {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  padding: 5px 10px 4px;
+  background: var(--cream);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+  box-shadow: var(--shadow-soft);
+  cursor: pointer;
+  transition: transform 60ms ease-out, box-shadow 60ms ease-out, background 80ms;
+}
+.mode-switch button:hover {
+  background: #fff4d4;
+}
+.mode-switch button.active {
+  background: var(--yellow);
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.row {
+  display: flex;
+  gap: 6px;
+}
+
+.key {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 44px;
+  background: var(--cream);
+  color: var(--ink);
+  border: 2.5px solid var(--ink);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 3px 6px 2px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1;
+  box-shadow: var(--shadow);
+  transition:
+    transform 30ms ease-out,
+    box-shadow 30ms ease-out,
+    background-color 80ms;
+  overflow: hidden;
+}
+.key .sub {
+  font-size: 9px;
+  opacity: 0.55;
+  letter-spacing: 0.5px;
+}
+.key .top {
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.key.wide .top {
+  font-size: 11px;
+  text-transform: lowercase;
+}
+
+.key.accent-yellow {
+  background: var(--yellow);
+}
+.key.accent-red {
+  background: var(--red);
+  color: var(--cream);
+}
+.key.accent-red .sub {
+  color: var(--cream);
+  opacity: 0.7;
+}
+
+.key.space {
+  color: transparent;
+  background: var(--cream);
+  background-image: repeating-linear-gradient(
+    90deg,
+    transparent 0 18px,
+    rgba(26, 22, 18, 0.08) 18px 19px
+  );
+}
+
+.key.pressed {
+  transform: translate(4px, 4px);
+  box-shadow: none;
+  filter: brightness(0.95);
+}
+
+/* per-key stickers */
+.sticker {
+  position: absolute;
+  pointer-events: none;
+}
+.key .sticker {
+  width: 14px;
+  height: 14px;
+  top: 2px;
+  right: 3px;
+  transform: rotate(-14deg);
+}
+.key .sticker.heart {
+  transform: rotate(8deg);
+}
+.sticker path {
+  stroke: var(--ink);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+.sticker.star path {
+  fill: var(--yellow);
+}
+.sticker.heart path {
+  fill: var(--red);
+}
+
+/* case stickers, oversized, off the case edge */
+.case > .sticker.case-star {
+  width: 36px;
+  height: 36px;
+  top: -14px;
+  right: 22px;
+  transform: rotate(18deg);
+  filter: drop-shadow(var(--shadow-soft));
+}
+.case > .sticker.case-star-2 {
+  width: 22px;
+  height: 22px;
+  top: auto;
+  bottom: -10px;
+  right: 90px;
+  transform: rotate(-12deg);
+}
+.case > .sticker.case-heart {
+  width: 30px;
+  height: 30px;
+  bottom: -12px;
+  left: 28px;
+  top: auto;
+  right: auto;
+  transform: rotate(-22deg);
+  filter: drop-shadow(var(--shadow-soft));
+}
